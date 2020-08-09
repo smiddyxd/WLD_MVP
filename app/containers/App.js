@@ -1,31 +1,34 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import LabelManager from '../components/LabelManager';
-import * as TodoActions from '../actions/todos';
-import style from './App.css';
+import LabelManager from '../components/LabelManager'
+import * as LabelActions from '../actions/labels';
 
 @connect(
   state => ({
-    todos: state.todos
+    labels: state.labels
   }),
   dispatch => ({
-    actions: bindActionCreators(TodoActions, dispatch)
+    actions: bindActionCreators(LabelActions, dispatch)
   })
 )
 export default class App extends Component {
 
   static propTypes = {
-    todos: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
   };
 
   render() {
-    const { todos, actions } = this.props;
+    const { labels, actions } = this.props;
+
+    console.log(labels)
 
     return (
-      <div className={style.normal}>
-        <LabelManager addLabel={actions.addLabel}/>
+      <div>
+        <LabelManager 
+          labels={labels}
+          addLabel={actions.addLabel}
+        />
         {/* <Header addTodo={actions.addTodo} />
         <MainSection todos={todos} actions={actions} /> */}
       </div>
